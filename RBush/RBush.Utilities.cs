@@ -9,11 +9,12 @@ namespace RBush
 	public partial class RBush<T>
 	{
 		#region Sort Functions
-		private static readonly IComparer<ISpatialData> CompareMinX =
-			ProjectionComparer<ISpatialData>.Create(d => d.Envelope.MinX);
-		private static readonly IComparer<ISpatialData> CompareMinY =
-			ProjectionComparer<ISpatialData>.Create(d => d.Envelope.MinY);
+		private static readonly Comparison<ISpatialData> CompareMinX =
+			static (x, y) => x.Envelope.MinX.CompareTo(y.Envelope.MinX);
+		private static readonly Comparison<ISpatialData> CompareMinY =
+			static (x, y) => x.Envelope.MinY.CompareTo(y.Envelope.MinY);
 		#endregion
+
 
 		#region Search
 		private List<ImmutableStack<ISpatialData>> DoPathSearch(in Envelope boundingBox)
